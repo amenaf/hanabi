@@ -1,14 +1,14 @@
 <template>
   <header>
     <div class="wrapper">
-      <div id="logo">
+      <router-link to = "/" id="logo">
         <h1>花火大会</h1>
-      </div>
+      </router-link>
       <div class="spacer"></div>
       <nav>
-        <a>
+        <router-link to = "/eventlist">
           <span><span>花火大会</span></span>
-        </a>
+        </router-link>
         <a>
           <span><span>人気ランキング</span></span>
         </a>
@@ -59,6 +59,17 @@ nav {
   grid-template-rows: auto auto;
 
   border-right: 1px solid #ccc;
+}
+nav router-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 12em;
+  border-left: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+
+  cursor: pointer;
 }
 nav a {
   display: flex;

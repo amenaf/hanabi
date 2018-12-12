@@ -1,25 +1,27 @@
 <template>
   <div id="list">
     <Header></Header>
-    /*反復表示したい↓*/
+    <!--反復表示したい↓-->
 
     <Calendar
-      v-for="item in list"
+      v-for="(event, day) in events"
       :year="year"
       :month="month"
-      :item="item"
-      :key="">
+      :day="day"
+      :key="day">
     </Calendar>
-   /*反復表示したい↑*/
-  <div class="header_menu">
-    <div id="month">
-      <span>{{ year }}年<br>{{ month }}<br>月</span>
+    <!--反復表示したい↑-->
+    <div id="back">
+      <div id = "header_menu">
+        <div id="month">
+          <span>{{ year }}年<br>{{ month }}<br>月</span>
+        </div>
+        <p id="select_month">
+          <button type="button" v-on:click="prevMonth">Prev</button>
+          <button type="button" v-on:click="nextMonth">Next</button>
+        </p>
+      </div>
     </div>
-    <p id="select_month">
-      <button type="button" v-on:click="prevMonth">Prev</button>
-      <button type="button" v-on:click="nextMonth">Next</button>
-    </p>
-  </div>
   </div>
 </template>
 
@@ -45,16 +47,22 @@ export default{
     this.year = now.getFullYear()
     this.month = now.getMonth() + 1
 
-    axios.get('https://fireworks.g4rds.mixh.jp/api/eventlist', { params: { month: '2018-12' } })
+    var syear = String(this.year)
+    var smonth = String(this.month)
+    axios.get('https://fireworks.g4rds.mixh.jp/api/eventlist/', { params: { month: syear + '-' + smonth } })
       .then(res => {
-        let events = res.data
-        events.forEach((e) => {
-          let day = Number(e.date.from.slice(8, 9))
-          if (!this.events[day]) {
-            this.events[day] = []
+        let data = res.data
+        let events = {}
+
+        data.forEach((e) => {
+          let day = Number(e.date.from.slice(8, 10))
+          if (!events[day]) {
+            events[day] = []
           }
-          this.events[day].push(e)
+          events[day].push(e)
         })
+
+        this.events = events
       })
       .catch(res => {
         console.log('I cannot get event...')
@@ -68,6 +76,29 @@ export default{
       } else {
         this.month--
       }
+      var syear = String(this.year)
+      var smonth = String(this.month)
+      if (this.month < 10) {
+        smonth = '0' + smonth
+      }
+      axios.get('https://fireworks.g4rds.mixh.jp/api/eventlist/', { params: { month: syear + '-' + smonth } })
+        .then(res => {
+          let data = res.data
+          let events = {}
+
+          data.forEach((e) => {
+            let day = Number(e.date.from.slice(8, 10))
+            if (!events[day]) {
+              events[day] = []
+            }
+            events[day].push(e)
+          })
+
+          this.events = events
+        })
+        .catch(res => {
+          console.log('I cannot get event...')
+        })
     },
     nextMonth () {
       if (this.month === 12) {
@@ -76,6 +107,29 @@ export default{
       } else {
         this.month++
       }
+      var syear = String(this.year)
+      var smonth = String(this.month)
+      if (this.month < 10) {
+        smonth = '0' + smonth
+      }
+      axios.get('https://fireworks.g4rds.mixh.jp/api/eventlist/', { params: { month: syear + '-' + smonth } })
+        .then(res => {
+          let data = res.data
+          let events = {}
+
+          data.forEach((e) => {
+            let day = Number(e.date.from.slice(8, 10))
+            if (!events[day]) {
+              events[day] = []
+            }
+            events[day].push(e)
+          })
+
+          this.events = events
+        })
+        .catch(res => {
+          console.log('I cannot get event...')
+        })
     }
   }
 }
@@ -83,19 +137,26 @@ export default{
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css?family=Lato');
- .header_menu{
-   position: fixed;
-   top: 0;
-   right: 0;
-   left: 0;
+  #back{
+    position: fixed;
+    top: 105px;
+    background-color: #00439f;
+    width:100%;
+  }
+
+ #header_menu{
+   display: flex;
+   justify-content: space-between;
+   margin: 0 auto;
+   align-items: center;
+   width: 100%;
+   max-width: 1000px;
    height: 80px;
    background-color: #00439f;
  }
 
  #month{
-   position: fixed;
-   top: 5px;
-   left: 5;
+   position: relative;
    height: 70px;
    width: 70px;
    border-radius: 10%;
@@ -113,60 +174,7 @@ export default{
  }
 
  #select_month {
-   position: fixed;
-   top: 30px;
-   right: 60px;
    color: #000;
    cursor: pointer;
- }
- #list {
-   max-width: 1000px;
-   margin: 0 auto;
-   padding: 0 20px;
- }
- .calendar{
-   max-width: 800px;
-   font-family: Lato;
-   margin-bottom: 0;
-   margin-top: 0;
-   background-color: #ec5336;
- }
-
- .calendar .header{
-   margin-top: 80px;
-   height: 80px;
-   line-height: 80px;
-   position: relative;
-   color: #FFF;
-   cursor: pointer;
- }
- .calendar .header-icon{
-   position: absolute;
-   top: 10px;
-   right: 16px;
-   transform: rotate(0deg);
-   transition-duration: 0.3s;
- }
-
- .calendar .header-icon.rotate{
-   transform: rotate(180deg);
-   transition-duration: 0.3s;
- }
-
- .calendar .body{
-   overflow: hidden;
-   background-color: #FFF;
-   border: 10px solid #00439f;
-   border-top: 0;
- }
-
- .accordion .body-inner{
-   padding: 8px;
-   overflow-wrap: break-word;
- }
-
- .accordion .header-icon.rotate{
-   transform: rotate(180deg);
-   transition-duration: 0.3s;
  }
 </style>
