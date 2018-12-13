@@ -25,9 +25,14 @@
 
 <style scoped>
 header {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100px;
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+
+  background: #fff;
 }
 header .wrapper {
   display: flex;

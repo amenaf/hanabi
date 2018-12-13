@@ -1,16 +1,16 @@
 <template>
   <div id="list">
     <Header></Header>
-    <!--反復表示したい↓-->
-
-    <Calendar
-      v-for="(event, day) in events"
-      :year="year"
-      :month="month"
-      :day="day"
-      :key="day">
-    </Calendar>
-    <!--反復表示したい↑-->
+    <div id="calendar">
+      <Calendar
+        v-for="(event, day) in events"
+        :year="year"
+        :month="month"
+        :day="day"
+        :key="day"
+        :event="event">
+      </Calendar>
+    </div>
     <div id="back">
       <div id = "header_menu">
         <div id="month">
@@ -64,8 +64,8 @@ export default{
 
         this.events = events
       })
-      .catch(res => {
-        console.log('I cannot get event...')
+      .catch(err => {
+        console.log(err)
       })
   },
   methods: {
@@ -127,8 +127,8 @@ export default{
 
           this.events = events
         })
-        .catch(res => {
-          console.log('I cannot get event...')
+        .catch(e => {
+          console.log(e)
         })
     }
   }
@@ -139,7 +139,7 @@ export default{
 @import url('https://fonts.googleapis.com/css?family=Lato');
   #back{
     position: fixed;
-    top: 105px;
+    top: 100px;
     background-color: #00439f;
     width:100%;
   }
@@ -177,4 +177,10 @@ export default{
    color: #000;
    cursor: pointer;
  }
+
+ #calendar {
+   margin-top: 180px;
+ }
+
+
 </style>

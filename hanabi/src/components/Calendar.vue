@@ -2,13 +2,13 @@
   <div class="calendar">
     <div class="header" v-on:click="toggle">
       <i class="fa fa-2x fa-angle-down header-icon" v-bind:class="{ rotate: show}"></i>
-      <!--ここにそれぞれのイベントの日付とイベントの数-->
-      <span>{{ day }}</span>
+      <span>{{ day }}日</span>
     </div>
     <transition>
       <div class="body" v-show="show">
         <div class="body-inner">
-          ここに本体
+          <div v-for="e in event"
+          :key=e.id>{{ e.name }}</div>
         </div>
       </div>
     </transition>
@@ -21,7 +21,8 @@ export default {
     year: Number,
     month: Number,
     item: Object,
-    day: String
+    day: String,
+    event: Array
   },
   data () {
     return {
@@ -42,13 +43,11 @@ export default {
   max-width: 800px;
   font-family: Lato;
   margin-bottom: 0;
-  margin-top: 0;
-  margin: 0 auto;
+  margin: 40px auto;
   background-color: #ec5336;
 }
 
 .calendar .header{
-  margin-top: 20px;
   height: 80px;
   line-height: 80px;
   position: relative;
@@ -58,8 +57,9 @@ export default {
 
 .calendar .header span{
   position:absolute;
-  left: 5;
-  top: 5;
+  left: 5px;
+  top: 0px;
+  font-size: 30px;
 }
 .calendar .header-icon{
   position: absolute;
@@ -89,9 +89,5 @@ export default {
 .accordion .header-icon.rotate{
   transform: rotate(180deg);
   transition-duration: 0.3s;
-}
-
-.calendar .header:first-child{
-  margin-top: 80px;
 }
 </style>
