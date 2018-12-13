@@ -9,15 +9,15 @@
         <router-link to = "/eventlist">
           <span><span>花火大会</span></span>
         </router-link>
-        <a>
+        <router-link to = "/ranking">
           <span><span>人気ランキング</span></span>
-        </a>
-        <a>
+        </router-link>
+        <router-link to = "/about">
           <span><span>このサイトについて</span></span>
-        </a>
-        <a>
+        </router-link>
+        <router-link to = "/inquiry">
           <span><span>お問い合わせ</span></span>
-        </a>
+        </router-link>
       </nav>
     </div>
   </header>

@@ -182,5 +182,4 @@ export default{
    margin-top: 180px;
  }
 
-
 </style>
