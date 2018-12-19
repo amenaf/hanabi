@@ -23,7 +23,7 @@
           <div class="zipcode">〒{{ event.zipcode }}</div>
           <div class="address">{{ event.address }}</div>
           <div class="tel">{{ event.tel }}</div>
-          <a :href="event.webpage">{{ event.webpage }}</a>
+          <a target="_blank" :href="event.webpage">{{ event.webpage }}</a>
         </div>
       </div>
     </div>
