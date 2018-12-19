@@ -1,0 +1,3 @@
+RewriteEngine On
+RewriteBase /api/event/
+RewriteRule ^(.*)$ index.php

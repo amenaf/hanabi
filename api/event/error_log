@@ -1,0 +1,32 @@
+[06-Dec-2018 04:12:35 UTC] PHP Fatal error:  Uncaught Error: Cannot access empty property in /home/eistsquf/public_html/fireworks/api/event/index.php:29
+Stack trace:
+#0 /home/eistsquf/public_html/fireworks/api/event/index.php(111): Event->createFromRequest(Array)
+#1 {main}
+  thrown in /home/eistsquf/public_html/fireworks/api/event/index.php on line 29
+[06-Dec-2018 04:13:39 UTC] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'descripton' in 'field list' in /home/eistsquf/public_html/fireworks/api/event/index.php:72
+Stack trace:
+#0 /home/eistsquf/public_html/fireworks/api/event/index.php(72): PDO->prepare('INSERT INTO `ev...')
+#1 /home/eistsquf/public_html/fireworks/api/event/index.php(117): Event->insert(Object(PDO))
+#2 {main}
+  thrown in /home/eistsquf/public_html/fireworks/api/event/index.php on line 72
+[06-Dec-2018 04:22:38 UTC] PHP Fatal error:  Uncaught Error: Class 'Date' not found in /home/eistsquf/public_html/fireworks/api/event/index.php:35
+Stack trace:
+#0 /home/eistsquf/public_html/fireworks/api/event/index.php(111): Event->createFromRequest(Array)
+#1 {main}
+  thrown in /home/eistsquf/public_html/fireworks/api/event/index.php on line 35
+[06-Dec-2018 04:24:01 UTC] PHP Warning:  error_log() expects parameter 1 to be string, object given in /home/eistsquf/public_html/fireworks/api/event/index.php on line 68
+[06-Dec-2018 04:24:17 UTC] PHP Warning:  error_log() expects parameter 1 to be string, object given in /home/eistsquf/public_html/fireworks/api/event/index.php on line 68
+[06-Dec-2018 04:24:39 UTC] PHP Warning:  error_log() expects parameter 1 to be string, array given in /home/eistsquf/public_html/fireworks/api/event/index.php on line 68
+[06-Dec-2018 04:24:58 UTC] {"from":"10:00","to":"24:00"}
+[06-Dec-2018 04:25:58 UTC] {"from":"2018-12-05","to":"2018-12-07"}
+[06-Dec-2018 04:40:29 UTC] {"from":"2018-12-05","to":"2018-12-07"}
+[06-Dec-2018 04:40:43 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/eistsquf/public_html/fireworks/api/event/index.php:121
+Stack trace:
+#0 {main}
+  thrown in /home/eistsquf/public_html/fireworks/api/event/index.php on line 121
+[06-Dec-2018 04:41:04 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/eistsquf/public_html/fireworks/api/event/index.php:121
+Stack trace:
+#0 {main}
+  thrown in /home/eistsquf/public_html/fireworks/api/event/index.php on line 121
+[06-Dec-2018 05:19:11 UTC] {"from":"2018-02-05","to":"2018-02-07"}
+[06-Dec-2018 05:19:40 UTC] {"from":"2018-02-27","to":"2018-03-01"}

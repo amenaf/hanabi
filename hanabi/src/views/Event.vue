@@ -61,7 +61,7 @@ export default{
               /* マップを描画 */
               this.googleMap = new google.maps.Map(document.getElementById('map'), {
                 center: { lat: this.event.latitude, lng: this.event.longitude },
-                zoom: 14
+                zoom: 15
               })
 
               /* イベント会場の座標 */
@@ -94,6 +94,14 @@ export default{
               service.nearbySearch(request, (results, status) => {
                 if (status === google.maps.places.PlacesServiceStatus.OK) {
                   let markers = []
+
+                  /* 駐車場を近い順に並べる */
+                  results.sort((a, b) => {
+                    let distA = Math.sqrt(Math.pow((this.event.latitude - a.geometry.location.lat()) * 2, 2) + Math.pow((this.event.longitude - a.geometry.location.lng()), 2))
+                    let distB = Math.sqrt(Math.pow((this.event.latitude - b.geometry.location.lat()) * 2, 2) + Math.pow((this.event.longitude - b.geometry.location.lng()), 2))
+
+                    return distA - distB
+                  })
 
                   for (let i = 0; i < results.length; i++) {
                     let place = results[i]

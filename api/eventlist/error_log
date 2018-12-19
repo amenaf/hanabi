@@ -1,0 +1,15 @@
+[06-Dec-2018 05:12:41 UTC] PHP Parse error:  syntax error, unexpected 'convertFromDb' (T_STRING), expecting variable (T_VARIABLE) in /home/eistsquf/public_html/fireworks/api/eventlist/index.php on line 26
+[06-Dec-2018 05:13:52 UTC] PHP Parse error:  syntax error, unexpected 'convertFromDb' (T_STRING), expecting variable (T_VARIABLE) in /home/eistsquf/public_html/fireworks/api/eventlist/index.php on line 26
+[06-Dec-2018 05:14:25 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/eistsquf/public_html/fireworks/api/eventlist/index.php on line 52
+[06-Dec-2018 05:14:39 UTC] PHP Parse error:  syntax error, unexpected 'getCalenderFormat' (T_STRING), expecting variable (T_VARIABLE) in /home/eistsquf/public_html/fireworks/api/eventlist/index.php on line 54
+[06-Dec-2018 05:18:03 UTC] 2018-12-01, 2018-12-31
+[06-Dec-2018 05:18:03 UTC] PHP Fatal error:  Uncaught Error: Call to a member function bindParam() on null in /home/eistsquf/public_html/fireworks/api/eventlist/index.php:102
+Stack trace:
+#0 {main}
+  thrown in /home/eistsquf/public_html/fireworks/api/eventlist/index.php on line 102
+[06-Dec-2018 05:18:18 UTC] 2018-12-01, 2018-12-31
+[06-Dec-2018 05:18:42 UTC] 2018-12-01, 2018-12-31
+[06-Dec-2018 05:19:17 UTC] 2018-02-01, 2018-02-31
+[06-Dec-2018 05:19:44 UTC] 2018-02-01, 2018-02-31
+[06-Dec-2018 05:19:54 UTC] 2018-03-01, 2018-03-31
+[06-Dec-2018 05:19:58 UTC] 2018-02-01, 2018-02-31

@@ -1,0 +1,8 @@
+[13-Dec-2018 00:39:05 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/eistsquf/public_html/fireworks/api/event/review/index.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/eistsquf/public_html/fireworks/api/event/review/index.php on line 26
+[13-Dec-2018 00:40:16 UTC] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/eistsquf/public_html/fireworks/api/event/review/index.php:26
+Stack trace:
+#0 {main}
+  thrown in /home/eistsquf/public_html/fireworks/api/event/review/index.php on line 26
