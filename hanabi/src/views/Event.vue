@@ -16,11 +16,15 @@
         <div class="bad" @click="putBad"><i class="fas fa-thumbs-down"></i>{{ event.bad }}</div>
       </div>
 
+      <h2>会場と周辺の駐車場</h2>
       <div class="place">
-        <div class="zipcode">〒{{ event.zipcode }}</div>
-        <div class="address">{{ event.address }}</div>
-        <div class="tel">{{ event.tel }}</div>
-        <a :href="event.webpage">{{ event.webpage }}</a>
+        <div id="map"></div>
+        <div class="data">
+          <div class="zipcode">〒{{ event.zipcode }}</div>
+          <div class="address">{{ event.address }}</div>
+          <div class="tel">{{ event.tel }}</div>
+          <a :href="event.webpage">{{ event.webpage }}</a>
+        </div>
       </div>
     </div>
   </div>
@@ -30,6 +34,8 @@
 import axios from 'axios'
 import Header from '@/components/Header'
 
+import GoogleMapsApiLoader from 'google-maps-api-loader'
+
 export default{
   name: 'event',
   components: {
@@ -37,7 +43,8 @@ export default{
   },
   data () {
     return {
-      event: null
+      event: null,
+      googleMap: null
     }
   },
   methods: {
@@ -45,9 +52,97 @@ export default{
       axios.get('https://fireworks.g4rds.mixh.jp/api/event/' + this.$route.params.id)
         .then(res => {
           this.event = res.data
+
+          GoogleMapsApiLoader({
+            libraries: ['places'],
+            apiKey: 'AIzaSyA0nSf3mQWMU6M1CV8IlG28-0F1spcfh0Y'
+          })
+            .then(google => {
+              /* マップを描画 */
+              this.googleMap = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: this.event.latitude, lng: this.event.longitude },
+                zoom: 14
+              })
+
+              /* イベント会場の座標 */
+              let eventLatLng = new google.maps.LatLng(this.event.latitude, this.event.longitude)
+
+              /* イベント会場にマーカーを設置 */
+              let infoWindow = new google.maps.InfoWindow({
+                content: `<div class="info">
+                <h3>${this.event.name} の会場</h3>
+                </div>`
+              })
+
+              let marker = new google.maps.Marker({
+                position: eventLatLng,
+                map: this.googleMap,
+                title: this.event.name + ' の会場'
+              })
+              marker.addListener('click', function () {
+                infoWindow.open(this.googleMap, marker)
+              })
+              this.markers = [marker]
+
+              /* 周辺の駐車場を取得 */
+              let service = new google.maps.places.PlacesService(this.googleMap)
+              let request = {
+                location: eventLatLng,
+                radius: '1000',
+                type: ['parking']
+              }
+              service.nearbySearch(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                  let markers = []
+
+                  for (let i = 0; i < results.length; i++) {
+                    let place = results[i]
+
+                    /* 周辺の駐車場にマーカーを設置 */
+                    let parkingOrder = i === 0
+                      ? '最も近い'
+                      : (i + 1) + '番目に近い'
+
+                    let infoWindow = new google.maps.InfoWindow({
+                      content: `<div class="info">
+                        <h3>${place.name}</h3>
+                        <strong>会場周辺で${parkingOrder}駐車場</strong>
+                        <p>${place.vicinity}</p>
+                      </div>`
+                    })
+
+                    let marker = new google.maps.Marker({
+                      position: place.geometry.location,
+                      icon: {
+                        fillColor: '#1976D2',
+                        fillOpacity: 1,
+                        path: google.maps.SymbolPath.CIRCLE,
+                        strokeWeight: 0,
+                        scale: 12
+                      },
+                      label: {
+                        text: String.fromCharCode(65 + i), // 'A' + i
+                        color: '#FFFFFF',
+                        fontSize: '18px'
+                      },
+                      map: this.googleMap,
+                      title: place.name
+                    })
+                    marker.addListener('click', function () {
+                      infoWindow.open(this.googleMap, marker)
+                    })
+                    markers.push(marker)
+                  }
+
+                  this.markers = this.markers.concat(markers)
+                }
+              })
+            }, err => {
+              console.error(err)
+            })
         })
-        .catch(e => {
-          console.log(e)
+        .catch(err => {
+          console.log(err)
         })
     },
     putGood () {
@@ -170,8 +265,30 @@ p {
   background: linear-gradient(90deg, #ff532b, #e82c00);
 }
 
+h2 {
+  margin: 3rem 0.5rem 0.5rem 0.5rem;
+  padding-left: 0.5em;
+  border-left: 5px solid #00439f;
+
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #444;
+}
 .place {
+  display: flex;
+  align-items: stretch;
+
   margin: 1em 0 0 0.5em;
+}
+#map {
+  flex: 1 1 300px;
+
+  min-height: 300px;
+}
+.place .data {
+  flex: 0 1 auto;
+
+  margin-left: 2rem;
 }
 .zipcode {
   font-size: 14px;
