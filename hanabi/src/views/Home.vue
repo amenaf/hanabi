@@ -51,14 +51,15 @@ export default {
 }
 
 #news h1{
-    border: 2px solid;
+    border: 1px solid;
     border-bottom-style: none;
     margin-bottom: 0px;
-    background-color: #8CABFF;
+    background-color: #00439f;
+    color: #fff;
 }
 
 #news ul{
-    border: 2px solid;
+    border: 1px solid;
     border-top-style: dashed;
     list-style: none;
     line-height: 2.2;
@@ -81,12 +82,13 @@ export default {
 }
 
 #hanabi h1{
-    border: 2px solid;
+    border: 1px solid;
     border-bottom-style: dashed;
     line-height: 1.5;
     margin-top: 50px;
     margin-bottom: 0px;
-    background-color: #8CABFF;
+    background-color: #00439f;
+    color: #fff;
 }
 
 #hanabi ul{
@@ -121,15 +123,16 @@ export default {
 }
 
 #rank h1{
-    border: 2px solid;
+    border: 1px solid;
     border-bottom-style: none;
     margin-bottom: 0px;
     margin-top: 50px;
-    background-color: #8CABFF;
+    background-color: #00439f;
+    color: #fff;
 }
 
 #rank ul{
-    border: 2px solid;
+    border: 1px solid;
     border-top-style: dashed;
     line-height: 2.2;
     margin-top: 0px;
